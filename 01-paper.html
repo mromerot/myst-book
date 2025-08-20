@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>paper</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="01-paper_files/libs/clipboard/clipboard.min.js"></script>
+<script src="01-paper_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="01-paper_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="01-paper_files/libs/quarto-html/popper.min.js"></script>
+<script src="01-paper_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="01-paper_files/libs/quarto-html/anchor.min.js"></script>
+<link href="01-paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="01-paper_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="01-paper_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="01-paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="01-paper_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="how-to-myst-without-being-mystified" class="level1">
+<h1>How to MyST, without being mystified 🧙</h1>
+<p>A tutorial to evolve markdown documents and notebooks into structured data</p>
+<p><strong>Authors:</strong> Rowan Cockett<sup>1,2</sup><br>
+<strong>Affiliations:</strong> <sup>1</sup>Executable Books, <sup>2</sup> Curvenote<br>
+<strong>License:</strong> CC-BY</p>
+<p><strong>Abstract</strong></p>
+<p>We introduce, a set of open-source, community-driven tools for MyST Markdown (<a href="https://myst.tools">myst.tools</a>) designed for scientific communication, including a powerful authoring framework that supports blogs, online books, scientific papers, reports and journals articles.</p>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>Scientific communication today is designed around print documents and pay-walled access to content. Over the last decade, the open-science movement has accelerated the use of pre-print services and data archives that are vastly improving the accessibility of scientific content. However, these systems are not designed for communicating modern scientific outputs, which encompasses <strong>so much more</strong> than a paper-centric model of the scholarly literature.</p>
+<blockquote class="blockquote">
+<p>We believe how we share and communicate scientific knowledge should evolve past the status quo of print-based publishing and all the limitations of paper.</p>
+</blockquote>
+<p>The communication and collaboration tools that we are building in the Project Jupyter are built to follow the FORCE11 recommendations (Bourne <em>et al.</em>, 2012). Specifically:</p>
+<ol type="1">
+<li>rethink the unit and form of scholarly publication;</li>
+<li>develop tools and technologies to better support the scholarly lifecycle; and</li>
+<li>add data, software, and workflows as first-class research objects.</li>
+</ol>
+<p>By bringing professional, high-quality tools for science communication into the research lifecycle, we believe we can improve the collection and preservation of scholarly metadata (citations, cross-references, annotations, etc.) as well as open up new ways to communicate science with interactive figures &amp; equations, computation, and reactivity.</p>
+<p>The tools that are being built by the Project Jupyter are focused on introducing a new Markup language, MyST (Markedly Structured Text), that works seamlessly with the Jupyter community to enhance and promote a new path to document creation and publishing for next-generation scientific textbooks, blogs, and lectures. Our team is currently supported by the <a href="https://sloan.org">Sloan Foundation</a>, (<a href="https://sloan.org/grant-detail/9231">Grant #9231</a>).</p>
+<p>MyST enables rich content generation and is a powerful format for scientific and technical communication. JupyterBook uses MyST and has broad adoption in publishing tutorials and educational content focused around Jupyter Notebooks.</p>
+<blockquote class="blockquote">
+<p>The components behind Jupyter Book are downloaded 30,000 times a day, with 750K downloads last month.</p>
+</blockquote>
+<p>The current toolchain used by <a href="https://jupyterbook.org/">JupyterBook</a> is based on <a href="https://www.sphinx-doc.org/">Sphinx</a>, which is an open-source documentation system used in many software projects, especially in the Python ecosystem. <code>mystjs</code> is a similar tool to <a href="https://www.sphinx-doc.org/">Sphinx</a>, however, designed specifically for scientific communication. In addition to building websites, <code>mystjs</code> can also help you create scientific PDFs, Microsoft Word documents, and JATS XML (used in scientific publishing).</p>
+<p><code>mystjs</code> uses existing, modern web-frameworks in place of the <a href="https://www.sphinx-doc.org/">Sphinx</a> build system. These tools come out-of-the-box with prefetching for faster navigation, smaller network payloads through modern web-bundlers, image optimization, partial-page refresh through single-page application. Many of these features, performance and accessibility improvements are difficult, if not impossible, to create inside of the <a href="https://www.sphinx-doc.org/">Sphinx</a> build system.</p>
+<p>In 2022, the Executable Books team started work to document the specification behind the markup language, called <a href="https://github.com/jupyter-book/myst-spec">myst-spec</a>, this work has enabled other tools and implementations in the scientific ecosystem to build on MyST (e.g.&nbsp;<a href="https://curvenote.com/for/writing">scientific authoring tools</a>, and <a href="https://blog.readthedocs.com/jupyter-book-read-the-docs/">documentation systems</a>).</p>
+<p>The <code>mystjs</code> ecosystem was developed as a collaboration between <a href="https://curvenote.com">Curvenote</a>, <a href="https://2i2c.org/">2i2c</a> and the <a href="https://executablebooks.org/">ExecutableBooks</a> team. The initial version of <code>mystjs</code> was originally release by <a href="https://curvenote.com">Curvenote</a> as the <a href="https://curvenote.com/docs/cli">Curvenote CLI</a> under the MIT license, and transferred to the <a href="https://executablebooks.org/">ExecutableBooks</a> team in October 2022. The goal of the project is to enable the same rich content and authoring experiences that <a href="https://www.sphinx-doc.org/">Sphinx</a> allows for software documentation, with a focus on web-first technologies (Javascript), interactivity, accessibility, scientific references (e.g.&nbsp;DOIs and other persistent IDs), professional PDF outputs, and JATS XML documents for scientific archiving.</p>
+</section>
+<section id="myst-project" class="level2">
+<h2 class="anchored" data-anchor-id="myst-project">MyST Project</h2>
+<p>In this paper we introduce <code>mystjs</code>, which allows the popular MyST Markdown syntax to be run directly in a web browser, opening up new workflows for components to be used in web-based editors, <a href="https://github.com/jupyter-book/jupyterlab-myst">directly in Jupyter</a> and in JupyterLite. The libraries work with current MyST Markdown documents/projects and can export to <a href="https://myst.tools/docs/mystjs/creating-pdf-documents">LaTeX/PDF</a>, <a href="https://myst.tools/docs/mystjs/creating-word-documents">Microsoft Word</a> and <a href="https://myst.tools/docs/mystjs/creating-jats-xml">JATS</a> as well as multiple website templates using a <a href="https://myst.tools/docs/mystjs/accessibility-and-performance">modern</a> React-based renderer. There are currently over 400 scientific journals that are supported through <a href="https://github.com/myst-templates">templates</a>, with <a href="https://myst.tools/docs/jtex/create-a-latex-template">new LaTeX templates</a> that can be added easily using a Jinja-based templating package, called <a href="https://myst.tools/docs/jtex">jtex</a>.</p>
+<p>In our paper we will give an overview of the MyST ecosystem, how to use MyST tools in conjunction with existing Jupyter Notebooks, markdown documents, and JupyterBooks to create professional PDFs and interactive websites, books, blogs and scientific articles. We give special attention to the additions around structured data, standards in publishing (e.g.&nbsp;efforts in representing Notebooks as JATS XML), rich <a href="https://myst.tools/docs/mystjs/frontmatter">frontmatter</a> and bringing <a href="https://myst.tools/docs/mystjs/cross-references">cross-references</a> and <a href="https://myst.tools/docs/mystjs/external-references">persistent IDs</a> to life with interactive hover-tooltips (<a href="https://myst.tools/docs/mystjs/frontmatter">ORCID, RoR</a>, <a href="https://myst.tools/docs/mystjs/external-references#research-resource-identifiers">RRIDs</a>, <a href="https://myst.tools/docs/mystjs/citations">DOIs</a>, <a href="https://myst.tools/docs/mystjs/external-references#intersphinx">intersphinx</a>, <a href="https://myst.tools/docs/mystjs/external-references#wikipedia-links">wikipedia</a>, <a href="https://myst.tools/docs/mystjs/typography">JATS</a>, <a href="https://myst.tools/docs/mystjs/external-references#github-links">GitHub code</a>, and more!). This rich metadata and structured content can be used directly to improve science communication both through self-publishing books, blogs, and lab websites — as well as journals that incorporate Jupyter Notebooks.</p>
+</section>
+<section id="features-of-myst" class="level2">
+<h2 class="anchored" data-anchor-id="features-of-myst">Features of MyST</h2>
+<p>MyST is focused on scientific writing, and ensuring that citations are first class both for writing and for reading (see Figure 1).</p>
+<p><img src="./images/citations.png" class="img-fluid"> <strong>Figure 1</strong>: Citations are rendered with a popup directly inline.</p>
+<p>MyST aims to show as much information in context as possible, for example, Figure 2 shows a reading experience for a referenced equation: you can immediately <strong>click on the reference</strong>, see the equation, all without loosing any context – ultimately saving you time. Head <em>et al.</em> (2021) found that these ideas both improved the overall reading experience of articles as well as allowed researchers to answer questions about an article <strong>26% faster</strong> when compared to a traditional PDF!</p>
+<p><img src="./images/equations.gif" class="img-fluid"> <strong>Figure 2</strong>: In context cross-references improve the reading experience.</p>
+<p>One of the important underlying goals of practicing reproducibility, sharing more of the methods and data behind a scientific work so that other researchers can both verify as well as build upon your findings. One of the exciting ways to pull for reproducibility is to make documents directly linked to data and computation! In Figure 3, we are showing outputs from a Jupyter Notebook directly part of the published scientific narrative.</p>
+<p><img src="./images/interactive.gif" class="img-fluid"> <strong>Figure 3</strong>: Embedding data, interactivity and computation into a MyST article.</p>
+<p>To drive all of these features, the contents of a MyST document needs to be well defined. This is critical for powering interactive hovers, linked citations, and compatibility with scientific publishing standards like the Journal Article Metadata Tag Suite (JATS). We have an emerging specification for MyST, <a href="https://spec.myst.tools"><code>myst-spec</code></a>, that aims to capture this information and transform it between many different formats, like PDF, Word, JSON, and JATS XML (Figure 4). This specification is arrived at through a community-centric MyST Enhancement Proposal (<a href="https://compass.executablebooks.org/en/latest/meps.html">MEP</a>) process.</p>
+<p><img src="./images/structured-data.gif" class="img-fluid"> <strong>Figure 4</strong>: The data behind MyST is <strong>structured</strong>, which means we can transform it into many different document types and use it to power all sorts of exciting features!</p>
+<p>One of the common forms of scientific communication today is through PDF documents. MyST has excellent support for creating PDF documents, using a data-driven templating library called <code>jtex</code>. The document in Figure 5 was created using MyST!</p>
+<p><img src="./images/pdf-two-column.png" class="img-fluid"> <strong>Figure 5</strong>: A PDF rendering through MyST.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>There are many opportunities to improve open-science communication, to make it more interactive, accessible, more reproducible, and both produce and use structured data throughout the research-writing process. The <code>mystjs</code> ecosystem of tools is designed with structured data at its core. We would love if you gave it a try – learn to get started at <a href="https://myst.tools" class="uri">https://myst.tools</a>.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Bourne, Philip E., Clark, Timothy W., Dale, Robert, De Waard, Anita, Herman, Ivan, Hovy, Eduard H., Shotton, David. (2012)“Improving The Future of Research Communications and e-Scholarship”. FORCE11. doi:10.4230/DAGMAN.1.1.41</p>
+<p>Head, A., Lo, K., Kang, D., Fok, R., Skjonsberg, S., Weld, D. S., &amp; Hearst, M. A. (2021, May). Augmenting Scientific Papers with Just-in-Time, Position-Sensitive Definitions of Terms and Symbols. Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems. 10.1145/3411764.3445648</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
