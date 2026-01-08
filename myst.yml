@@ -10,16 +10,34 @@ project:
   github: https://github.com/mromerot/data.science.git
 
   # To autogenerate a Table of Contents, run "myst init --write-toc"
+  #
+  # ESTRUCTURA DE IMÁGENES (Co-localización - Opción 4)
+  # Cada sección tiene su carpeta /images local para mantener contenido y assets juntos:
+  # - /google-colab/images/    - 6 imágenes (4 notebooks de Colab)
+  # - /myst/images/             - 8 imágenes de ejemplos MyST
+  # - /python/images/           - Listo para contenido Python
+  # - /qgis/images/             - Listo para contenido QGIS
+  # - /images/                  - Solo para assets globales (logo, favicon, imágenes compartidas)
+  #
+  # VENTAJAS: Referencias simples (images/file.png), modularidad, portabilidad, escalabilidad
+  #
   toc:
     - title: Inicio
       file: README.md
     - title: Google Colab
       children:
-        - file: google-colab/Tutorial de Colab.ipynb
+        - file: google-colab/bienvenida-colab.ipynb
+        - file: google-colab/tutorial-colab.ipynb
+        - file: google-colab/overview-of-colaboratory-features.ipynb
+        - file: google-colab/quick-primer-colab-jupyter.ipynb
     - title: MyST Markdown
       children:
         - file: myst/01-paper.md
         - file: myst/02-notebook.ipynb
+        - file: myst/markdown.md
+    - title: QGIS
+      children:
+        - file: qgis/qgis.md
 
 site:
   template: book-theme
