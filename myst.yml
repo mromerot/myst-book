@@ -16,6 +16,10 @@ project:
     - title: Google Colab
       children:
         - file: google-colab/Tutorial de Colab.ipynb
+    - title: MyST Markdown
+      children:
+        - file: myst/01-paper.md
+        - file: myst/02-notebook.ipynb
 
 site:
   template: book-theme
