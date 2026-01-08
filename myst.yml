@@ -2,12 +2,21 @@
 version: 1
 project:
   id: 25dff7c5-7adc-40df-8ee9-9bbcb09ca0d3
-  # title:
+  title: Data science
   # description:
-  # keywords: []
-  # authors: []
+  keywords: [data science, Python, R, Myst, Jupyter, notebooks, Google Colab]
+  authors:
+    - name: Mauricio Romero T.
   github: https://github.com/mromerot/data.science.git
+
   # To autogenerate a Table of Contents, run "myst init --write-toc"
+  toc:
+    - title: Inicio
+      file: README.md
+    - title: Google Colab
+      children:
+        - file: google-colab/Tutorial de Colab.ipynb
+
 site:
   template: book-theme
   # options:
