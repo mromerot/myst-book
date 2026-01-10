@@ -29,9 +29,10 @@ project:
         - file: google-colab/bienvenida-colab.ipynb
         - file: google-colab/tutorial-colab.ipynb
         - file: google-colab/overview-of-colaboratory-features.ipynb
-        - file: google-colab/quick-primer-colab-jupyter.ipynb
+        - file: google-colab/Quick-primer-Colab Jupyter.ipynb
     - title: MyST Markdown
       children:
+        - file: myst/editar-markdown.md
         - file: myst/01-paper.md
         - file: myst/02-notebook.ipynb
         - file: myst/markdown.md
