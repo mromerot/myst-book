@@ -46,7 +46,7 @@ project:
         - file: myst/03-inline-interactivity.ipynb
         - file: myst/04-myst-frontmatter.ipynb
         - file: myst/05-markdown-files.md
-        - file: myst/HowtoMyST.md
+        - file: myst/06-HowtoMyST.md
         - file: myst/07-notebook.ipynb
     - title: QGIS
       children:
