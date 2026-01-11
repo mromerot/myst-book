@@ -9,13 +9,6 @@ project:
     - name: Mauricio Romero T.
   github: https://github.com/mromerot/data.science.git
 
-  # Configuración para notebooks - Botones de Colab
-  thebe:
-    binder:
-      url: https://mybinder.org
-      repo: mromerot/data.science
-      ref: main
-
   # To autogenerate a Table of Contents, run "myst init --write-toc"
   #
   # ESTRUCTURA DE IMÁGENES (Co-localización - Opción 4)
@@ -54,10 +47,6 @@ project:
 
 site:
   template: book-theme
-  actions:
-    - title: Abrir en Colab
-      url: https://colab.research.google.com/github/mromerot/data.science/blob/main
-      static: false
   options:
     logo_text: Data Science
     # favicon: favicon.ico
