@@ -9,6 +9,13 @@ project:
     - name: Mauricio Romero T.
   github: https://github.com/mromerot/data.science.git
 
+  # Configuración para notebooks - Botones de Colab
+  thebe:
+    binder:
+      url: https://mybinder.org
+      repo: mromerot/data.science
+      ref: main
+
   # To autogenerate a Table of Contents, run "myst init --write-toc"
   #
   # ESTRUCTURA DE IMÁGENES (Co-localización - Opción 4)
@@ -39,14 +46,19 @@ project:
         - file: myst/03-inline-interactivity.ipynb
         - file: myst/04-myst-frontmatter.ipynb
         - file: myst/05-markdown-files.md
-        - file: myst/01-paper.md
-        - file: myst/02-notebook.ipynb
+        - file: myst/HowtoMyST.md
+        - file: myst/07-notebook.ipynb
     - title: QGIS
       children:
         - file: qgis/qgis.md
 
 site:
   template: book-theme
-  # options:
-  #   favicon: favicon.ico
-  #   logo: site_logo.png
+  actions:
+    - title: Abrir en Colab
+      url: https://colab.research.google.com/github/mromerot/data.science/blob/main
+      static: false
+  options:
+    logo_text: Data Science
+    # favicon: favicon.ico
+    # logo: site_logo.png

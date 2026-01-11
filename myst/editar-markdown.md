@@ -14,7 +14,7 @@ MyST permite trabajar principalmente con archivos Markdown (`.md`) para document
 
 Puede trabajar otros lenguajes de programación en Jupyter Notebooks dentro de archivos (`.ipynb`).
 
-## Pasos para generar un documento en Myst
+## Pasos para generar un documento Markdown en Myst
 
 1.  **Crear un archivo Markdown**: Comience creando un archivo con extensión `.md` en su proyecto Myst (p.ej. Archivo>Nuevo archivo, en el explorador, etc).
 2.  **Agregar el encabezado YML**: Al inicio del archivo, incluya un bloque de encabezado YML con metadatos como título, fecha, autores y opciones de exportación.
