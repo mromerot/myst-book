@@ -1,5 +1,5 @@
 ---
-title: Editar archivos Markdown en Myst
+title: Editar archivos Markdown
 date: 2025-01-10
 authors:
   - name: Mauricio Romero T.
@@ -12,17 +12,18 @@ exports:
 
 MyST permite trabajar principalmente con archivos Markdown (`.md`) para documentos estáticos y Jupyter Notebooks (`.ipynb`) para contenido interactivo con código ejecutable, ambos combinables en un mismo proyecto.
 
-Puede trabajar otros lenguajes de programacón en Jupyter Notebooks dentro de archivos (`.ipynb`).
+Puede trabajar otros lenguajes de programación en Jupyter Notebooks dentro de archivos (`.ipynb`).
 
 ## Pasos para generar un documento en Myst
 
-1.  **Crear un archivo Markdown**: Comience creando un archivo con extensión `.md` en su proyecto Myst.
+1.  **Crear un archivo Markdown**: Comience creando un archivo con extensión `.md` en su proyecto Myst (p.ej. Archivo>Nuevo archivo, en el explorador, etc).
 2.  **Agregar el encabezado YML**: Al inicio del archivo, incluya un bloque de encabezado YML con metadatos como título, fecha, autores y opciones de exportación.
+  - Complete la mayor cantidad de campos posibles en el encabezado YML para mejorar la organización y presentación del documento.
 3.  **Escribir el contenido**: Utilice la sintaxis Markdown para estructurar y formatear el contenido del documento.
 4.  **Incluir elementos adicionales**: Puede agregar imágenes, tablas, enlaces y otros elementos multimedia según sea necesario.
 5.  **Guardar y compilar**: Guarde el archivo y utilice las herramientas de Myst para compilar y generar el documento final en el formato deseado (PDF, HTML, etc.).  
 6. **Incluya el documento en myst.yml**: Debe incluir el archivo en la estructura de la TOC de myst.yml para que sea visible en la plataforma.
-
+7. **Revisión de errores con AI**: Solicite siempre a su asistente de AI que revise la estructura del encabezado .yml y su inclusión en el TOC de myst.yml para evitar errores comunes.
 
 ## Encabezado yml
 

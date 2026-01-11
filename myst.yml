@@ -32,10 +32,15 @@ project:
         - file: google-colab/Quick-primer-Colab Jupyter.ipynb
     - title: MyST Markdown
       children:
+        - file: myst/config-myst.md
         - file: myst/editar-markdown.md
+        - file: myst/01-welcome-to-myst.ipynb
+        - file: myst/02-myst-markdown-basics.ipynb
+        - file: myst/03-inline-interactivity.ipynb
+        - file: myst/04-myst-frontmatter.ipynb
+        - file: myst/05-markdown-files.md
         - file: myst/01-paper.md
         - file: myst/02-notebook.ipynb
-        - file: myst/markdown.md
     - title: QGIS
       children:
         - file: qgis/qgis.md
